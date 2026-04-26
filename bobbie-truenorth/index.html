@@ -897,28 +897,29 @@
 
   .tier-secondary-links {
     display: flex;
-    gap: var(--space-3);
-    margin-top: var(--space-4);
+    gap: var(--space-2);
+    margin-top: var(--space-3);
   }
 
   .tier-secondary-links a {
     flex: 1;
     display: block;
     text-align: center;
-    padding: 11px 16px;
-    border: 1px solid var(--border-default);
+    padding: 11px 14px;
+    border: 1px solid var(--divider);
     border-radius: 8px;
-    background: var(--bg-default);
-    color: var(--text-default);
+    background: var(--bg-primary);
+    color: var(--text-primary);
     text-decoration: none;
     font-weight: 500;
     font-size: 14px;
-    transition: border-color 0.15s ease, background 0.15s ease;
+    transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
   }
 
   .tier-secondary-links a:hover {
     border-color: var(--accent);
     background: var(--accent-soft);
+    color: var(--accent);
   }
 
   /* ---------- CTA ---------- */
