@@ -759,6 +759,220 @@
     line-height: 1.5;
   }
 
+  /* ---------- THE NUMBERS ---------- */
+
+  .numbers-subhead {
+    margin-top: var(--space-7);
+    margin-bottom: var(--space-4);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+    text-align: center;
+  }
+
+  .numbers-subhead:first-of-type {
+    margin-top: var(--space-5);
+  }
+
+  /* Centered, compact cost cards (overrides .scale-wrap defaults) */
+  .numbers-costs {
+    max-width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 720px) {
+    .numbers-costs { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .numbers-costs .scale-stat {
+    text-align: center;
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .numbers-costs .scale-stat .num {
+    font-size: 42px;
+  }
+
+  .numbers-costs .scale-stat .lbl {
+    margin-top: var(--space-2);
+  }
+
+  .numbers-costs .scale-stat p {
+    margin-top: var(--space-3);
+    font-size: 14px;
+  }
+
+  /* Centered header for the Numbers section */
+  .numbers-header {
+    text-align: center;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Vertical funnel — tapers visually as conversion narrows, climax expands */
+  .funnel {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 540px;
+    margin: 0 auto;
+    gap: 0;
+  }
+
+  .funnel-step {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-md);
+    padding: var(--space-5) var(--space-4);
+    text-align: center;
+    box-shadow: var(--shadow-xs);
+    align-self: center;
+    width: 100%;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .funnel-step:hover {
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Climax step — same size as others, just highlighted */
+  .funnel-step.climax {
+    background: var(--accent-soft);
+    border: 2px solid var(--accent);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .funnel-step.climax .funnel-label {
+    color: var(--text-primary);
+  }
+
+  .funnel-num {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: -0.025em;
+    line-height: 1;
+  }
+
+  .funnel-label {
+    margin-top: var(--space-2);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .funnel-arrow {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: center;
+    padding: var(--space-3) 0 0;
+    font-weight: 500;
+    align-self: center;
+  }
+
+  .funnel-arrow::after {
+    content: "↓";
+    display: block;
+    margin: 4px auto 0;
+    font-size: 16px;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  /* Funnel scroll-reveal — slide up + fade in, sequenced by scroll position */
+  html.js .funnel-step,
+  html.js .funnel-arrow {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  html.js .funnel-step.in,
+  html.js .funnel-arrow.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.js .funnel-step,
+    html.js .funnel-arrow {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  .numbers-fine {
+    margin-top: var(--space-5);
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--text-muted);
+    text-align: center;
+    font-style: italic;
+  }
+
+  .numbers-refs {
+    margin-top: var(--space-6);
+    padding: var(--space-4) var(--space-5);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    max-width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .numbers-refs h4 {
+    margin: 0 0 var(--space-3);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .numbers-refs ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 720px) {
+    .numbers-refs ul { grid-template-columns: 1fr 1fr; }
+  }
+
+  .numbers-refs li {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .numbers-refs a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease;
+  }
+
+  .numbers-refs a:hover {
+    border-bottom-color: var(--accent);
+  }
+
   /* ---------- PRICING ---------- */
 
   .pricing-grid {
@@ -1326,6 +1540,90 @@
   </section>
   
 
+  <!-- ========== THE NUMBERS (conditional) ========== -->
+  
+  <section class="block alt">
+    <div class="container">
+      <div class="numbers-header">
+        <div class="eyebrow accent">The numbers</div>
+        <h2>Tool costs scale linearly. Pipeline value doesn't.</h2>
+        <p class="section-lead">Pass-through tool costs (Twilio + OpenAI + hosting + 10DLC) stay around $20-30 per agent per month at pilot scale and drop to ~$10-12 by full rollout. The funnel below shows what those messages actually buy across the 5-agent pilot.</p>
+      </div>
+
+      <h3 class="numbers-subhead">Run cost at each scale</h3>
+      <div class="scale-wrap numbers-costs">
+        <div class="scale-stat">
+          <div class="num">~$150/mo</div>
+          <div class="lbl">Pilot (5 agents)</div>
+          <p>Conservative ceiling. Realistic volume lands closer to $80/mo (Twilio $52 + GPT-4o-mini $1 + numbers, 10DLC, hosting $26); $150 leaves headroom for heavier conversation volume and carrier fee swings.</p>
+        </div>
+        <div class="scale-stat">
+          <div class="num">~$655/mo</div>
+          <div class="lbl">50-agent rollout</div>
+          <p>Per-agent cost drops to ~$13/mo as 10DLC fees, hosting, and dashboard amortise across more agents.</p>
+        </div>
+        <div class="scale-stat">
+          <div class="num">~$6,140/mo</div>
+          <div class="lbl">500-agent deployment</div>
+          <p>~$12 per agent per month at list price. Twilio committed-spend discount above $5K MRR brings the all-in to ~$5,000-5,500/mo.</p>
+        </div>
+      </div>
+
+      <h3 class="numbers-subhead">Across the 5-agent pilot, per month</h3>
+      <div class="funnel">
+        <div class="funnel-step">
+          <div class="funnel-num">1,750</div>
+          <div class="funnel-label">Cold attempts</div>
+        </div>
+        <div class="funnel-arrow">70% delivered</div>
+        <div class="funnel-step">
+          <div class="funnel-num">1,225</div>
+          <div class="funnel-label">Messages land</div>
+        </div>
+        <div class="funnel-arrow">16% reply</div>
+        <div class="funnel-step">
+          <div class="funnel-num">200</div>
+          <div class="funnel-label">Engaged convos</div>
+        </div>
+        <div class="funnel-arrow">20% book</div>
+        <div class="funnel-step">
+          <div class="funnel-num">40</div>
+          <div class="funnel-label">Appointments</div>
+        </div>
+        <div class="funnel-arrow">25% close</div>
+        <div class="funnel-step">
+          <div class="funnel-num">10</div>
+          <div class="funnel-label">Listings</div>
+        </div>
+        <div class="funnel-arrow">× $7,500 avg</div>
+        <div class="funnel-step">
+          <div class="funnel-num">$7,500</div>
+          <div class="funnel-label">Avg gross commission per listing side</div>
+        </div>
+        <div class="funnel-arrow">= monthly total</div>
+        <div class="funnel-step climax">
+          <div class="funnel-num">$75,000</div>
+          <div class="funnel-label">Attributable gross commission per month vs ~$150/mo tool spend</div>
+        </div>
+      </div>
+
+      <p class="numbers-fine">Funnel rates are mid-range industry benchmarks for cold real-estate SMS (sources below). Cut every rate in half and the economics still work.</p>
+
+      <div class="numbers-refs">
+        <h4>Sources for these numbers</h4>
+        <ul>
+          <li><a href="https://www.twilio.com/en-us/sms/pricing/us" target="_blank" rel="noopener noreferrer">Twilio US SMS pricing (segment + carrier fees)</a></li>
+          <li><a href="https://www.twilio.com/en-us/a2p-10dlc" target="_blank" rel="noopener noreferrer">Twilio A2P 10DLC fees ($1.15/number, $10/mo campaign)</a></li>
+          <li><a href="https://pricepertoken.com/pricing-page/model/openai-gpt-4o-mini" target="_blank" rel="noopener noreferrer">OpenAI GPT-4o-mini pricing ($0.15/M input, $0.60/M output)</a></li>
+          <li><a href="https://www.globenewswire.com/news-release/2026/04/21/3277568/0/en/TextUs-Survey-of-763-Revenue-Professionals-Finds-SMS-Response-Rates-Top-34-With-Highest-Performing-Stages-Among-the-Least-Used.html" target="_blank" rel="noopener noreferrer">TextUs 2026 SMS reply-rate benchmark survey</a></li>
+          <li><a href="https://www.apexleadsource.com/real-estate-isa-role-in-lead-conversion/" target="_blank" rel="noopener noreferrer">Apex Lead Source: real estate ISA conversion benchmarks</a></li>
+          <li><a href="https://www.telgorithm.com/smart-queueing" target="_blank" rel="noopener noreferrer">Telgorithm: 10DLC deliverability + cold-SMS filtering rates</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  
+
   <!-- ========== PRICING ========== -->
   <section class="block alt">
     <div class="container">
@@ -1364,7 +1662,7 @@
       </div>
 
       
-      <p class="monthly-note">Twilio, Claude API, and Railway hosting after the first month: ~$70-90/mo at beta scale, scales linearly with usage — exact costs in the Statement of Work.</p>
+      <p class="monthly-note">Tool costs (Twilio, OpenAI, hosting) covered by Harris Automations for the first month, then transferred to True North at provider rates with no markup. See The Numbers above for run-cost breakdown. — exact costs in the Statement of Work.</p>
       
     </div>
   </section>
@@ -1406,6 +1704,7 @@
 
     if (prefersReduced) {
       document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+      document.querySelectorAll('.funnel-step, .funnel-arrow').forEach(function (el) { el.classList.add('in'); });
       return;
     }
 
@@ -1419,6 +1718,17 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
     document.querySelectorAll('.reveal').forEach(function (el) { revealObs.observe(el); });
+
+    // Funnel-specific observer — fires per element as you scroll past, so vertical funnel cards "scroll up" sequentially
+    var funnelObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          funnelObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.4, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.funnel-step, .funnel-arrow').forEach(function (el) { funnelObs.observe(el); });
 
     // Number count-up on scale stats and mockup stats
     function animateCount(el) {
