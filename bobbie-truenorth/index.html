@@ -895,6 +895,32 @@
     text-align: center;
   }
 
+  .tier-secondary-links {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+
+  .tier-secondary-links a {
+    flex: 1;
+    display: block;
+    text-align: center;
+    padding: 11px 16px;
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    background: var(--bg-default);
+    color: var(--text-default);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .tier-secondary-links a:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
   /* ---------- CTA ---------- */
 
   .cta-section {
@@ -1321,6 +1347,12 @@
           
           <a class="tier-cta-button" href="https://buy.stripe.com/bJe00kbfZ8BL9ha4xQ9bO0g">Pay $1,250 Deposit</a>
           <span class="tier-cta-fine">Card payments accepted - you'll get the points.</span>
+          
+          
+          <div class="tier-secondary-links">
+            <a href="https://finn-harris-automations.github.io/harris-proposals/bobbie-truenorth/sow.pdf" target="_blank" rel="noopener">View Statement of Work</a>
+            <a href="https://finn-harris-automations.github.io/harris-proposals/bobbie-truenorth/sow.pdf" download>Download SoW (PDF)</a>
+          </div>
           
         </div>
         
