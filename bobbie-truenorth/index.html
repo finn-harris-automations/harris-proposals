@@ -1547,7 +1547,7 @@
       <div class="numbers-header">
         <div class="eyebrow accent">The numbers</div>
         <h2>Tool costs scale linearly. Pipeline value doesn't.</h2>
-        <p class="section-lead">Pass-through tool costs (Twilio + OpenAI + hosting + 10DLC) stay around $20-30 per agent per month at pilot scale and drop to ~$10-12 by full rollout. The funnel below shows what those messages actually buy across the 5-agent pilot.</p>
+        <p class="section-lead">Pass-through tool costs (Twilio + OpenAI + hosting + 10DLC) stay around $20-30 per agent per month at pilot scale and drop to ~$10-12 by full rollout. The funnel below applies your own 30-year baseline (1 appointment per 100 cold attempts, 1 listing per 5 appointments) to what the system will actually run across the 5-agent pilot.</p>
       </div>
 
       <h3 class="numbers-subhead">Run cost at each scale</h3>
@@ -1569,30 +1569,30 @@
         </div>
       </div>
 
-      <h3 class="numbers-subhead">Across the 5-agent pilot, per month</h3>
+      <h3 class="numbers-subhead">Across the 5-agent pilot, per month — using your 100:5:1 framework</h3>
       <div class="funnel">
         <div class="funnel-step">
           <div class="funnel-num">1,750</div>
           <div class="funnel-label">Cold attempts</div>
         </div>
-        <div class="funnel-arrow">70% delivered</div>
+        <div class="funnel-arrow">70% delivered (carrier filter)</div>
         <div class="funnel-step">
           <div class="funnel-num">1,225</div>
           <div class="funnel-label">Messages land</div>
         </div>
-        <div class="funnel-arrow">16% reply</div>
+        <div class="funnel-arrow">7% reply</div>
         <div class="funnel-step">
-          <div class="funnel-num">200</div>
+          <div class="funnel-num">85</div>
           <div class="funnel-label">Engaged convos</div>
         </div>
         <div class="funnel-arrow">20% book</div>
         <div class="funnel-step">
-          <div class="funnel-num">40</div>
-          <div class="funnel-label">Appointments</div>
+          <div class="funnel-num">17</div>
+          <div class="funnel-label">Appointments — your 1-in-100 rule</div>
         </div>
-        <div class="funnel-arrow">25% close</div>
+        <div class="funnel-arrow">20% close (your 1-in-5)</div>
         <div class="funnel-step">
-          <div class="funnel-num">10</div>
+          <div class="funnel-num">3</div>
           <div class="funnel-label">Listings</div>
         </div>
         <div class="funnel-arrow">× $7,500 avg</div>
@@ -1602,12 +1602,12 @@
         </div>
         <div class="funnel-arrow">= monthly total</div>
         <div class="funnel-step climax">
-          <div class="funnel-num">$75,000</div>
-          <div class="funnel-label">Attributable gross commission per month vs ~$150/mo tool spend</div>
+          <div class="funnel-num">$22,500</div>
+          <div class="funnel-label">Attributable gross commission per month vs ~$150/mo tool spend (150x ROI)</div>
         </div>
       </div>
 
-      <p class="numbers-fine">Funnel rates are mid-range industry benchmarks for cold real-estate SMS (sources below). Cut every rate in half and the economics still work.</p>
+      <p class="numbers-fine">Funnel rates back-figured from your 30-year baseline: 1 appointment per 100 cold attempts (1,750 → 17.5, rounded down to 17) and 1 listing per 5 appointments (17 → 3.4, rounded down to 3). Conservative rounding throughout. SMS upside vs cold-call (98% read rate, async, no agent fatigue) is unbooked — every multiplier above her baseline is gravy.</p>
 
       <div class="numbers-refs">
         <h4>Sources for these numbers</h4>
