@@ -868,6 +868,33 @@
     max-width: 640px;
   }
 
+  .tier-cta-button {
+    display: block;
+    background: var(--accent);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 14px 24px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: var(--space-4);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .tier-cta-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 102, 255, 0.25);
+  }
+
+  .tier-cta-fine {
+    display: block;
+    margin-top: var(--space-2);
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
   /* ---------- CTA ---------- */
 
   .cta-section {
@@ -1086,7 +1113,7 @@
     <div class="hero-orb a"></div>
     <div class="hero-orb b"></div>
     <div class="container">
-      <div class="eyebrow">Proposal — SMS Lead Conversion System</div>
+      <div class="eyebrow">Proposal - SMS Lead Conversion System</div>
       <h1>An agent on every text. A dashboard on every lead.</h1>
       <p class="lead">An always-on SMS conversion engine that texts your scraped leads in your voice, books warm ones straight into the agent's calendar, and gives you live-pipeline visibility across the whole pilot.</p>
       <div class="meta">
@@ -1108,8 +1135,8 @@
         <div class="ba-col before">
           <h3>Today</h3>
           <ul>
-            <li>9 in 10 agents won't pick up the phone, so scraped lead lists pile up unworked</li>
-            <li>Your scripts only deploy when an agent makes the call themselves</li>
+            <li>You're paying for the lead list, and the cold-call burden falls on the agent</li>
+            <li>Your scripts only deploy when an agent picks up the phone themselves</li>
             <li>No visibility on which agents are letting warm hand-offs die</li>
           </ul>
         </div>
@@ -1144,7 +1171,7 @@
 
         
         <div class="sol-card agent">
-          <div class="card-icon">SE</div>
+          
           <h3>SMS Conversion Engine</h3>
           <div class="role">Always-on cold-outreach assistant</div>
           <p>Pulls leads from your existing public-records source (Zillow, MRED, county records, tax records), opens a multi-turn text conversation in your voice, and books warm leads straight into the agent's calendar. Presents as the agent's assistant, never impersonates.</p>
@@ -1165,7 +1192,7 @@
 
         
         <div class="sol-card">
-          <div class="card-icon">DB</div>
+          
           <h3>Per-Agent Dashboard</h3>
           <p>A live web view of every conversation, hand-off, and booked appointment. See which agents are working their warm hand-offs and which are letting them die, and pull the lead-flow back accordingly.</p>
           <div class="specs">
@@ -1247,25 +1274,25 @@
   
   <section class="block">
     <div class="container">
-      <div class="eyebrow accent">Built to scale</div>
-      <h2>From pilot to product.</h2>
-      <p class="section-lead">Phase 1 lights up your pilot agents. The architecture is built so scaling to your full 300+ agent base, or selling the engine as a product to other brokerages, is a config change, not a rebuild.</p>
+      <div class="eyebrow accent">Built for scale</div>
+      <h2>From pilot to your full agent base.</h2>
+      <p class="section-lead">This proposal covers the pilot for your initial agents. The architecture is built so adding agents 6 through 300+ is a config change, not a rebuild. Three features make that possible:</p>
 
       <div class="scale-wrap">
         <div class="scale-stat">
           <div class="num">500+</div>
-          <div class="lbl">Agents the architecture supports</div>
-          <p>Add an agent in minutes: dedicated number, dedicated bot config, multiple territories per agent.</p>
+          <div class="lbl">Agents supported</div>
+          <p>Each new agent gets a dedicated Twilio number and bot config in minutes. Onboarding is config, not code.</p>
         </div>
         <div class="scale-stat">
-          <div class="num">Phase 2</div>
-          <div class="lbl">Built-in monetization path</div>
-          <p>Stripe billing front-end and customer management ready to bolt on once Phase 1 proves out.</p>
+          <div class="num">Multi</div>
+          <div class="lbl">Territories per agent</div>
+          <p>Zip codes plus named buildings and farms per agent. One agent can run a high-rise plus three zip codes from a single number.</p>
         </div>
         <div class="scale-stat">
           <div class="num">0</div>
-          <div class="lbl">Months locked in</div>
-          <p>Ongoing engagement runs on performance share, not a flat retainer, sized once the dashboard shows real numbers.</p>
+          <div class="lbl">Downtime to swap scripts</div>
+          <p>Drop in updated scripts or per-agent overlays without taking the system offline. The engine loads them live.</p>
         </div>
       </div>
     </div>
@@ -1277,12 +1304,12 @@
     <div class="container">
       <div class="eyebrow accent">Investment</div>
       <h2>Fixed scope, fixed price.</h2>
-      <p class="section-lead">Phase 1 covers both pieces end-to-end. Phase 2 bolt-ons (monetization layer, recruitment mode, multi-office rollout) priced separately once the dashboard data is in.</p>
+      <p class="section-lead">Covers the SMS conversion engine, per-agent dashboard, and all integrations end-to-end. All tool costs covered for the first month.</p>
 
       <div class="pricing-grid tiers-1">
         
         <div class="tier-card">
-          <div class="eyebrow">Phase 1</div>
+          <div class="eyebrow">The Build</div>
           <h3>SMS Engine + Dashboard</h3>
           <div><span class="price">$2,500</span> <span class="period">50% on signing · 50% on MVP delivery</span></div>
           <ul>
@@ -1291,6 +1318,10 @@
             <li>Twilio + Bold Trail (KV Core) wired up</li>
             <li>All tool costs covered for the first month</li>
           </ul>
+          
+          <a class="tier-cta-button" href="https://buy.stripe.com/bJe00kbfZ8BL9ha4xQ9bO0g">Pay $1,250 Deposit</a>
+          <span class="tier-cta-fine">Card payments accepted - you'll get the points.</span>
+          
         </div>
         
 
@@ -1305,17 +1336,6 @@
     </div>
   </section>
 
-  
-  <!-- ========== CTA ========== -->
-  <section class="cta-section">
-    <div class="container">
-      <div class="eyebrow">Ready to go</div>
-      <h2>Ready to ship the moment the NDA is back.</h2>
-      <p class="lead">$1,250 deposit holds the build slot and triggers the Wednesday 30 April kickoff call. Final $1,250 invoiced on MVP delivery (target Sunday 10 May 2026).</p>
-      <a class="cta-button" href="https://buy.stripe.com/bJe00kbfZ8BL9ha4xQ9bO0g">Pay $1,250 Deposit</a>
-      <span class="cta-fine-print">NDA and Statement of Work travel separately by email. Card payments accepted (you'll get the points).</span>
-    </div>
-  </section>
   
 
   <!-- ========== FOOTER ========== -->
