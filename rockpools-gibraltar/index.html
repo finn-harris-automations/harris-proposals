@@ -780,6 +780,17 @@
       margin-left: auto;
       margin-right: auto;
     }
+
+    /* When pricing has a single tier, center the whole pricing section
+       so the header aligns with the centered card. */
+    .block:has(.pricing-grid.tiers-1) .eyebrow,
+    .block:has(.pricing-grid.tiers-1) h2,
+    .block:has(.pricing-grid.tiers-1) .section-lead,
+    .block:has(.pricing-grid.tiers-1) .monthly-note {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 
   .tier-card {
