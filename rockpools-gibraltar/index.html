@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script>document.documentElement.classList.add('js');</script>
 <style>
   :root {
     --bg-primary: #ffffff;
@@ -885,6 +886,125 @@
     section.block .section-lead { font-size: 18px; margin-bottom: var(--space-6); }
     .scale-stat .num { font-size: 48px; }
   }
+
+  /* ---------- MOTION ---------- */
+
+  /* Hero gradient orbs — subtle, drifting */
+  .hero { position: relative; overflow: hidden; }
+  .hero .container { position: relative; z-index: 1; }
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(48px);
+    z-index: 0;
+    pointer-events: none;
+    will-change: transform;
+  }
+  .hero-orb.a {
+    top: -240px; right: -180px;
+    width: 680px; height: 680px;
+    background: radial-gradient(circle, var(--accent-soft) 0%, transparent 65%);
+    animation: orb-drift-a 16s ease-in-out infinite;
+  }
+  .hero-orb.b {
+    bottom: -300px; left: -220px;
+    width: 560px; height: 560px;
+    background: radial-gradient(circle, rgba(0, 113, 227, 0.07) 0%, transparent 65%);
+    animation: orb-drift-b 22s ease-in-out infinite;
+  }
+  @keyframes orb-drift-a {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33%      { transform: translate(-40px, 50px) scale(1.08); }
+    66%      { transform: translate(60px, -30px) scale(0.95); }
+  }
+  @keyframes orb-drift-b {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(70px, -40px) scale(1.1); }
+  }
+
+  /* Scroll-reveal — only when JS is enabled */
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+    will-change: opacity, transform;
+  }
+  html.js .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  html.js .reveal.d1 { transition-delay: 0.08s; }
+  html.js .reveal.d2 { transition-delay: 0.16s; }
+  html.js .reveal.d3 { transition-delay: 0.24s; }
+  html.js .reveal.d4 { transition-delay: 0.32s; }
+
+  /* Hero text fade-in on load */
+  html.js .hero h1,
+  html.js .hero .lead,
+  html.js .hero .meta,
+  html.js .hero .eyebrow {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: hero-in 0.9s var(--ease) forwards;
+  }
+  html.js .hero .eyebrow { animation-delay: 0.05s; }
+  html.js .hero h1       { animation-delay: 0.15s; }
+  html.js .hero .lead    { animation-delay: 0.30s; }
+  html.js .hero .meta    { animation-delay: 0.45s; }
+  @keyframes hero-in {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Hover lifts */
+  .sol-card, .tier-card, .scale-stat, .pipe-step, .time-content {
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+  }
+  .sol-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .tier-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .scale-stat:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-md);
+  }
+  .pipe-step:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-sm);
+    border-color: var(--accent);
+  }
+  .time-content:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Stat progress bars: animate fill on scroll-into-view */
+  .stat-progress-fill {
+    transition: width 1.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  /* Browser frame subtle scale-in on view */
+  html.js .browser-frame.reveal {
+    transform: translateY(28px) scale(0.98);
+  }
+  html.js .browser-frame.reveal.in {
+    transform: translateY(0) scale(1);
+  }
+
+  /* Reduced motion — respect user preference */
+  @media (prefers-reduced-motion: reduce) {
+    html.js .reveal { opacity: 1; transform: none; transition: none; }
+    html.js .hero h1, html.js .hero .lead, html.js .hero .meta, html.js .hero .eyebrow {
+      opacity: 1; transform: none; animation: none;
+    }
+    .hero-orb { animation: none; }
+    .stat-progress-fill { transition: none; }
+    .sol-card:hover, .tier-card:hover, .scale-stat:hover, .pipe-step:hover { transform: none; }
+  }
 </style>
 </head>
 <body>
@@ -901,6 +1021,8 @@
 
   <!-- ========== HERO ========== -->
   <section class="hero">
+    <div class="hero-orb a"></div>
+    <div class="hero-orb b"></div>
     <div class="container">
       <div class="eyebrow">Proposal — Operational Automation</div>
       <h1>Automate job profitability without adding a single JobTread seat.</h1>
@@ -1129,6 +1251,105 @@
       <div class="tag">Finn Harris · AI Automation</div>
     </div>
   </footer>
+
+  <script>
+  (function () {
+    var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Tag elements for scroll-reveal with stagger delays
+    function tagAll(selector, perRow) {
+      var els = document.querySelectorAll(selector);
+      els.forEach(function (el, i) {
+        el.classList.add('reveal');
+        var d = (i % (perRow || 3)) + 1;
+        if (d > 1) el.classList.add('d' + Math.min(d, 4));
+      });
+    }
+    document.querySelectorAll('section.block').forEach(function (s) { s.classList.add('reveal'); });
+    tagAll('.ba-col', 2);
+    tagAll('.sol-card', 2);
+    tagAll('.scale-stat', 3);
+    tagAll('.tier-card', 3);
+    tagAll('.pipe-step', 3);
+    tagAll('.time-row', 3);
+    document.querySelectorAll('.browser-frame').forEach(function (f) { f.classList.add('reveal'); });
+
+    if (prefersReduced) {
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+
+    // Scroll reveal observer
+    var revealObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal').forEach(function (el) { revealObs.observe(el); });
+
+    // Number count-up on scale stats and mockup stats
+    function animateCount(el) {
+      var original = el.textContent.trim();
+      var match = original.match(/(-?\d[\d,]*\.?\d*)/);
+      if (!match) return;
+      var raw = match[1];
+      var finalNum = parseFloat(raw.replace(/,/g, ''));
+      if (!isFinite(finalNum) || finalNum === 0) return;
+      var prefix = original.slice(0, match.index);
+      var suffix = original.slice(match.index + match[0].length);
+      var hasDecimal = raw.indexOf('.') !== -1;
+      var decimals = hasDecimal ? raw.split('.')[1].length : 0;
+      var duration = 1400;
+      var start = performance.now();
+      function tick(now) {
+        var t = Math.min(1, (now - start) / duration);
+        var eased = 1 - Math.pow(1 - t, 3);
+        var current = finalNum * eased;
+        var formatted = hasDecimal
+          ? current.toFixed(decimals)
+          : Math.round(current).toLocaleString();
+        el.textContent = prefix + formatted + suffix;
+        if (t < 1) requestAnimationFrame(tick);
+        else el.textContent = original;
+      }
+      requestAnimationFrame(tick);
+    }
+    var countObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        countObs.unobserve(e.target);
+        animateCount(e.target);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.scale-stat .num, .mock-stat .num').forEach(function (el) {
+      countObs.observe(el);
+    });
+
+    // Stat progress bars: snapshot inline width, reset to 0, fill on view
+    document.querySelectorAll('.stat-progress-fill').forEach(function (el) {
+      var target = el.style.width;
+      if (!target) return;
+      el.dataset.target = target;
+      el.style.width = '0';
+    });
+    var progressObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting && e.target.dataset.target) {
+          requestAnimationFrame(function () {
+            e.target.style.width = e.target.dataset.target;
+          });
+          progressObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('.stat-progress-fill').forEach(function (el) {
+      if (el.dataset.target) progressObs.observe(el);
+    });
+  })();
+  </script>
 
 </body>
 </html>
