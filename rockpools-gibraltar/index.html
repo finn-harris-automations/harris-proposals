@@ -759,6 +759,220 @@
     line-height: 1.5;
   }
 
+  /* ---------- THE NUMBERS ---------- */
+
+  .numbers-subhead {
+    margin-top: var(--space-7);
+    margin-bottom: var(--space-4);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+    text-align: center;
+  }
+
+  .numbers-subhead:first-of-type {
+    margin-top: var(--space-5);
+  }
+
+  /* Centered, compact cost cards (overrides .scale-wrap defaults) */
+  .numbers-costs {
+    max-width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 720px) {
+    .numbers-costs { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .numbers-costs .scale-stat {
+    text-align: center;
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .numbers-costs .scale-stat .num {
+    font-size: 42px;
+  }
+
+  .numbers-costs .scale-stat .lbl {
+    margin-top: var(--space-2);
+  }
+
+  .numbers-costs .scale-stat p {
+    margin-top: var(--space-3);
+    font-size: 14px;
+  }
+
+  /* Centered header for the Numbers section */
+  .numbers-header {
+    text-align: center;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Vertical funnel — tapers visually as conversion narrows, climax expands */
+  .funnel {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 540px;
+    margin: 0 auto;
+    gap: 0;
+  }
+
+  .funnel-step {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-md);
+    padding: var(--space-5) var(--space-4);
+    text-align: center;
+    box-shadow: var(--shadow-xs);
+    align-self: center;
+    width: 100%;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .funnel-step:hover {
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Climax step — same size as others, just highlighted */
+  .funnel-step.climax {
+    background: var(--accent-soft);
+    border: 2px solid var(--accent);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .funnel-step.climax .funnel-label {
+    color: var(--text-primary);
+  }
+
+  .funnel-num {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: -0.025em;
+    line-height: 1;
+  }
+
+  .funnel-label {
+    margin-top: var(--space-2);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .funnel-arrow {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: center;
+    padding: var(--space-3) 0 0;
+    font-weight: 500;
+    align-self: center;
+  }
+
+  .funnel-arrow::after {
+    content: "↓";
+    display: block;
+    margin: 4px auto 0;
+    font-size: 16px;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  /* Funnel scroll-reveal — slide up + fade in, sequenced by scroll position */
+  html.js .funnel-step,
+  html.js .funnel-arrow {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  html.js .funnel-step.in,
+  html.js .funnel-arrow.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.js .funnel-step,
+    html.js .funnel-arrow {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  .numbers-fine {
+    margin-top: var(--space-5);
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--text-muted);
+    text-align: center;
+    font-style: italic;
+  }
+
+  .numbers-refs {
+    margin-top: var(--space-6);
+    padding: var(--space-4) var(--space-5);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    max-width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .numbers-refs h4 {
+    margin: 0 0 var(--space-3);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .numbers-refs ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 720px) {
+    .numbers-refs ul { grid-template-columns: 1fr 1fr; }
+  }
+
+  .numbers-refs li {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .numbers-refs a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease;
+  }
+
+  .numbers-refs a:hover {
+    border-bottom-color: var(--accent);
+  }
+
   /* ---------- PRICING ---------- */
 
   .pricing-grid {
@@ -866,6 +1080,111 @@
     font-size: 14px;
     color: var(--text-muted);
     max-width: 640px;
+  }
+
+  .tier-cta-button {
+    display: block;
+    background: var(--accent);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 14px 24px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: var(--space-4);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .tier-cta-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 102, 255, 0.25);
+  }
+
+  .tier-cta-fine {
+    display: block;
+    margin-top: var(--space-2);
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .tier-secondary-links {
+    display: flex;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+
+  .tier-secondary-links a {
+    flex: 1;
+    display: block;
+    text-align: center;
+    padding: 11px 14px;
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+  }
+
+  .tier-secondary-links a:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  /* ---------- CTA ---------- */
+
+  .cta-section {
+    background: var(--bg-default);
+    text-align: center;
+    padding: var(--space-9) 0;
+  }
+
+  .cta-section .container {
+    max-width: 720px;
+  }
+
+  .cta-section .eyebrow {
+    margin-bottom: var(--space-3);
+  }
+
+  .cta-section h2 {
+    margin-bottom: var(--space-4);
+  }
+
+  .cta-section .lead {
+    margin-bottom: var(--space-6);
+  }
+
+  .cta-button {
+    display: inline-block;
+    background: var(--accent);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 18px 36px;
+    border-radius: 8px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 102, 255, 0.25);
+  }
+
+  .cta-fine-print {
+    display: block;
+    margin-top: var(--space-5);
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   /* ---------- FOOTER ---------- */
@@ -1036,12 +1355,12 @@
     <div class="hero-orb b"></div>
     <div class="container">
       <div class="eyebrow">Proposal — Operational Automation</div>
-      <h1>Automate job profitability without adding a single JobTread seat.</h1>
-      <p class="lead">A middleware layer that syncs approved jobs into Connecteam, maps field staff as subcontractors, and feeds real clock-in hours back into JobTread's profitability reports.</p>
+      <h1>Automate job profitability without an Enterprise tier or extra JobTread seats.</h1>
+      <p class="lead">A Modal-hosted middleware bridges Connecteam and JobTread through Zapier — available on the Connecteam Advanced plan. Approved jobs sync into Connecteam automatically, and clock-in hours feed back into JobTread profitability as labour cost items.</p>
       <div class="meta">
         <span><strong>Prepared for</strong> James · Rockpool's Gibraltar</span>
         <span><strong>Prepared by</strong> Finn Harris · Harris Automations</span>
-        <span><strong>Date</strong> 2026-04-25</span>
+        <span><strong>Date</strong> 2026-04-28</span>
       </div>
     </div>
   </section>
@@ -1050,16 +1369,16 @@
   <section class="block alt">
     <div class="container">
       <div class="eyebrow accent">The shift</div>
-      <h2>Hours flow to the right place — automatically.</h2>
-      <p class="section-lead">Today, profitability is a spreadsheet reconciliation job. After this build, it's a live view inside JobTread.</p>
+      <h2>Hours flow to the right place, automatically.</h2>
+      <p class="section-lead">Today, profitability is a spreadsheet reconciliation job. After this build, it's a live view inside JobTread, with no plan upgrade and no extra seats.</p>
 
       <div class="ba-grid">
         <div class="ba-col before">
           <h3>Today</h3>
           <ul>
-            <li>Manual spreadsheet reconciliation of Connecteam hours against JobTread jobs every Friday</li>
+            <li>Manual spreadsheet reconciliation of Connecteam hours against JobTread jobs each week</li>
             <li>No visibility into quoted vs actual hours until weeks after job completion</li>
-            <li>Extra JobTread seats required for every field staff member to log time</li>
+            <li>Per-seat JobTread costs blocking field staff from logging time directly</li>
           </ul>
         </div>
         <div class="ba-col after">
@@ -1067,7 +1386,7 @@
           <ul>
             <li>Approved JobTread jobs appear in Connecteam the moment they're approved</li>
             <li>Real-time profitability inside JobTread as staff clock in and out</li>
-            <li>Zero extra JobTread seats — field staff use Connecteam only</li>
+            <li>Zero extra JobTread seats, no Connecteam Enterprise upgrade required</li>
           </ul>
         </div>
       </div>
@@ -1083,7 +1402,7 @@
     <div class="container">
       <div class="eyebrow accent">What we ship</div>
       <h2>A single middleware pipeline.</h2>
-      <p class="section-lead">Modal-hosted, Slack-monitored, production-grade. Documented handover so your team owns it.</p>
+      <p class="section-lead">Modal-hosted Python middleware, Zapier-bridged into Connecteam, Slack-monitored. Runs on Connecteam Advanced plan, no Enterprise tier needed. Documented handover so your team owns it.</p>
 
       <div class="card-grid">
 
@@ -1093,10 +1412,10 @@
         <div class="sol-card">
           <div class="card-icon">JB</div>
           <h3>Approved-Job Sync</h3>
-          <p>When a job is approved in JobTread, it's created in Connecteam with the project number as a unique reference. Staff can only clock into approved, active jobs.</p>
+          <p>When a job is approved in JobTread, the Modal middleware fires a Zapier action that creates the Connecteam job with the JobTread project number as a unique reference. Staff can only clock into approved, active jobs.</p>
           <div class="specs">
-            <span class="spec-pill">Webhook-driven</span>
-            <span class="spec-pill">Project number mapping</span>
+            <span class="spec-pill">Modal middleware</span>
+            <span class="spec-pill">Zapier-bridged</span>
             <span class="spec-pill">Slack alerts on failure</span>
           </div>
         </div>
@@ -1114,10 +1433,10 @@
         <div class="sol-card">
           <div class="card-icon">CT</div>
           <h3>Time-to-Profitability Loop</h3>
-          <p>Clock-in and clock-out events from Connecteam are posted back to JobTread as labour cost items against the correct job, feeding profitability reports.</p>
+          <p>Clock-in and clock-out events from Connecteam trigger Zapier, which calls the middleware to post hours back to JobTread as labour cost items against subcontractor staff records. Profitability reports populate in real time.</p>
           <div class="specs">
             <span class="spec-pill">Subcontractor cost-item write</span>
-            <span class="spec-pill">No seat cost</span>
+            <span class="spec-pill">No JobTread seats</span>
             <span class="spec-pill">Real-time</span>
           </div>
         </div>
@@ -1138,8 +1457,8 @@
   <section class="block alt">
     <div class="container">
       <div class="eyebrow accent">The view you'll get</div>
-      <h2>Profitability in JobTread — live.</h2>
-      <p class="section-lead">The existing JobTread profitability view, now populated automatically from field clock-in data.</p>
+      <h2>Profitability in JobTread, live.</h2>
+      <p class="section-lead">The existing JobTread profitability view, now populated automatically from field clock-in data flowing through Connecteam and Zapier.</p>
 
       <div class="mockup-wrap">
         <div class="browser-frame">
@@ -1157,12 +1476,12 @@
             <div class="mock-main">
               <div class="mock-stat-grid">
                 <div class="mock-stat">
-                  <div class="num">$42k</div>
+                  <div class="num">£42k</div>
                   <div class="lbl">Quoted labour (MTD)</div>
                   
                 </div>
                 <div class="mock-stat">
-                  <div class="num">$38k</div>
+                  <div class="num">£38k</div>
                   <div class="lbl">Actual labour (MTD)</div>
                   
                 </div>
@@ -1195,28 +1514,31 @@
   <section class="block">
     <div class="container">
       <div class="eyebrow accent">Scale</div>
-      <h2>Built for a growing team.</h2>
-      <p class="section-lead">As Rockpool's scales from single-crew maintenance to multi-project new builds, the pipeline handles it.</p>
+      <h2>Built for a growing team, on the plans you already pay for.</h2>
+      <p class="section-lead">As Rockpool's scales from single-crew maintenance to multi-project new builds, the pipeline handles it without forcing a plan upgrade.</p>
 
       <div class="scale-wrap">
         <div class="scale-stat">
           <div class="num">0</div>
           <div class="lbl">Extra JobTread seats</div>
-          <p>Field staff stay in Connecteam. Subcontractor mapping handles everything else.</p>
+          <p>Field staff stay in Connecteam. Subcontractor mapping handles everything else, no per-user JobTread cost.</p>
         </div>
         <div class="scale-stat">
-          <div class="num">100+</div>
-          <div class="lbl">Jobs per month ready</div>
-          <p>Webhook-driven, no polling, no rate limit concerns at Rockpool's current volume.</p>
+          <div class="num">0</div>
+          <div class="lbl">Connecteam Enterprise upgrades</div>
+          <p>Build runs on Connecteam Advanced plan via the official Zapier integration, no custom Enterprise pricing.</p>
         </div>
         <div class="scale-stat">
           <div class="num">24/7</div>
           <div class="lbl">Monitoring</div>
-          <p>Slack alerts on any sync failure. Auto-retry with exponential backoff.</p>
+          <p>Slack alerts on any sync failure with auto-retry and exponential backoff.</p>
         </div>
       </div>
     </div>
   </section>
+  
+
+  <!-- ========== THE NUMBERS (conditional) ========== -->
   
 
   <!-- ========== PRICING ========== -->
@@ -1224,20 +1546,22 @@
     <div class="container">
       <div class="eyebrow accent">Investment</div>
       <h2>Fixed scope, fixed price.</h2>
-      <p class="section-lead">One price for the whole build. 50% on signing, 50% on delivery.</p>
+      <p class="section-lead">One price for the whole build. 50% on signing, 50% on delivery, via Upwork milestones.</p>
 
       <div class="pricing-grid tiers-1">
         
         <div class="tier-card">
           <div class="eyebrow">Phase 1</div>
           <h3>Core Integration</h3>
-          <div><span class="price">$1,380</span> <span class="period">50% on signing · 50% on delivery</span></div>
+          <div><span class="price">£1,380</span> <span class="period">50% on signing · 50% on delivery</span></div>
           <ul>
-            <li>Approved-job sync JobTread → Connecteam</li>
-            <li>Subcontractor staff mapping</li>
+            <li>Approved-job sync JobTread → Connecteam (via Zapier)</li>
+            <li>Subcontractor staff mapping, no extra JobTread seats</li>
             <li>Time tracking Connecteam → JobTread cost items</li>
-            <li>Deployment, monitoring, handover docs</li>
+            <li>Modal deployment, Slack monitoring, handover docs</li>
           </ul>
+          
+          
         </div>
         
 
@@ -1247,10 +1571,12 @@
       </div>
 
       
-      <p class="monthly-note">Ongoing subscription costs (JobTread, Connecteam, Modal) billed separately to the end client — exact costs in the Statement of Work.</p>
+      <p class="monthly-note">Ongoing subscription costs (JobTread, Connecteam Advanced, Zapier Starter, Modal compute) billed separately to the end client — exact costs in the Statement of Work.</p>
       
     </div>
   </section>
+
+  
 
   <!-- ========== FOOTER ========== -->
   <footer>
@@ -1287,6 +1613,7 @@
 
     if (prefersReduced) {
       document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+      document.querySelectorAll('.funnel-step, .funnel-arrow').forEach(function (el) { el.classList.add('in'); });
       return;
     }
 
@@ -1300,6 +1627,17 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
     document.querySelectorAll('.reveal').forEach(function (el) { revealObs.observe(el); });
+
+    // Funnel-specific observer — fires per element as you scroll past, so vertical funnel cards "scroll up" sequentially
+    var funnelObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          funnelObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.4, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.funnel-step, .funnel-arrow').forEach(function (el) { funnelObs.observe(el); });
 
     // Number count-up on scale stats and mockup stats
     function animateCount(el) {
