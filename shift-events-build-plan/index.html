@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shift Events Extraction — Build Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #fbfbfd;
+    --bg-tertiary: #f5f5f7;
+    --bg-inverse: #1d1d1f;
+
+    --text-primary: #1d1d1f;
+    --text-secondary: #6e6e73;
+    --text-muted: #86868b;
+    --text-inverse: #f5f5f7;
+
+    --accent: #0066FF;
+    --accent-soft: #e6efff;
+    --accent-hover: #0052cc;
+
+    --warn: #b54708;
+    --warn-soft: #fef0c7;
+
+    --good: #067647;
+    --good-soft: #d1fadf;
+
+    --divider: #d2d2d7;
+    --border-soft: #e8e8ed;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-pill: 980px;
+
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08);
+
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 16px;
+    --space-4: 24px;
+    --space-5: 32px;
+    --space-6: 48px;
+    --space-7: 64px;
+    --space-8: 96px;
+    --space-9: 128px;
+
+    --container: 1120px;
+    --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+    --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-stack);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .container {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+  }
+
+  @media (min-width: 960px) {
+    .container { padding: 0 var(--space-6); }
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-3);
+  }
+
+  .eyebrow.accent { color: var(--accent); }
+
+  /* ---------- TOP WORDMARK BAR ---------- */
+
+  .topbar {
+    padding: var(--space-5) 0;
+    border-bottom: 1px solid var(--divider);
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .topbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .wordmark {
+    display: inline-flex;
+    flex-direction: column;
+    line-height: 0.95;
+  }
+
+  .wordmark .harris {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+  }
+
+  .wordmark .auto {
+    font-size: 22px;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    color: var(--text-secondary);
+  }
+
+  .topbar .doc-tag {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+  }
+
+  /* ---------- HERO ---------- */
+
+  .hero {
+    padding: var(--space-9) 0 var(--space-8);
+    border-bottom: 1px solid var(--divider);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero .container { position: relative; z-index: 1; }
+
+  .hero h1 {
+    font-size: 64px;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: var(--space-4);
+    max-width: 900px;
+  }
+
+  .hero .lead {
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    max-width: 720px;
+  }
+
+  .hero .meta {
+    margin-top: var(--space-6);
+    display: flex;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .hero .meta strong { color: var(--text-primary); font-weight: 500; }
+
+  /* Hero gradient orbs */
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(48px);
+    z-index: 0;
+    pointer-events: none;
+    will-change: transform;
+  }
+  .hero-orb.a {
+    top: -240px; right: -180px;
+    width: 680px; height: 680px;
+    background: radial-gradient(circle, var(--accent-soft) 0%, transparent 65%);
+    animation: orb-drift-a 16s ease-in-out infinite;
+  }
+  .hero-orb.b {
+    bottom: -300px; left: -220px;
+    width: 560px; height: 560px;
+    background: radial-gradient(circle, rgba(0, 113, 227, 0.07) 0%, transparent 65%);
+    animation: orb-drift-b 22s ease-in-out infinite;
+  }
+  @keyframes orb-drift-a {
+    0%, 100% { transform: translate(0, 0) scale(1);          opacity: 0.55; }
+    33%      { transform: translate(-40px, 50px) scale(1.12); opacity: 1; }
+    66%      { transform: translate(60px, -30px) scale(0.92); opacity: 0.7; }
+  }
+  @keyframes orb-drift-b {
+    0%, 100% { transform: translate(0, 0) scale(1);          opacity: 0.45; }
+    50%      { transform: translate(70px, -40px) scale(1.15); opacity: 0.95; }
+  }
+
+  /* ---------- SECTIONS ---------- */
+
+  section.block {
+    padding: var(--space-9) 0;
+  }
+
+  section.block.alt { background: var(--bg-secondary); }
+  section.block.dark { background: var(--bg-inverse); color: var(--text-inverse); }
+  section.block.dark h2 { color: var(--text-inverse); }
+  section.block.dark .section-lead { color: #a1a1a6; }
+
+  section.block h2 {
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: var(--space-3);
+    max-width: 820px;
+  }
+
+  section.block .section-lead {
+    font-size: 20px;
+    color: var(--text-secondary);
+    max-width: 720px;
+    margin-bottom: var(--space-7);
+  }
+
+  /* ---------- DIAGNOSIS ---------- */
+
+  .diag-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 720px) {
+    .diag-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .diag-card {
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    border: 1px solid var(--border-soft);
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-xs);
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  }
+
+  .diag-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .diag-card.symptom {
+    background: var(--bg-tertiary);
+    border-color: transparent;
+  }
+
+  .diag-card .label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--warn);
+    margin-bottom: var(--space-3);
+  }
+
+  .diag-card.cause .label { color: var(--accent); }
+
+  .diag-card h3 {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-3);
+  }
+
+  .diag-card p {
+    color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .diag-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  @media (max-width: 720px) {
+    .diag-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .diag-stat {
+    text-align: center;
+    padding: var(--space-4);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+  }
+
+  .diag-stat .num {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+    line-height: 1;
+  }
+
+  .diag-stat .lbl {
+    margin-top: var(--space-2);
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* ---------- THE SHIFT (BEFORE/AFTER FRAME) ---------- */
+
+  .shift-frame {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  @media (min-width: 960px) {
+    .shift-frame {
+      grid-template-columns: 1fr 60px 1fr;
+      align-items: stretch;
+    }
+  }
+
+  .shift-side {
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+
+  .shift-side.before {
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    position: relative;
+  }
+
+  .shift-side.after {
+    background: var(--bg-primary);
+    border: 1px solid var(--accent);
+    box-shadow: var(--shadow-md);
+    position: relative;
+  }
+
+  .shift-side h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+    letter-spacing: -0.01em;
+  }
+
+  .shift-side .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    margin-bottom: var(--space-3);
+  }
+
+  .shift-side.before .tag {
+    background: rgba(181, 71, 8, 0.1);
+    color: var(--warn);
+  }
+
+  .shift-side.after .tag {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .shift-side ul {
+    list-style: none;
+    margin-top: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .shift-side li {
+    font-size: 15px;
+    line-height: 1.5;
+    padding-left: 24px;
+    position: relative;
+  }
+
+  .shift-side.before li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+  }
+
+  .shift-side.after li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 12px;
+    height: 7px;
+    border-left: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    transform: rotate(-45deg);
+  }
+
+  .shift-arrow {
+    align-self: center;
+    justify-self: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 600;
+    box-shadow: 0 6px 20px rgba(0, 102, 255, 0.3);
+    animation: arrow-pulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes arrow-pulse {
+    0%, 100% { transform: scale(1);    box-shadow: 0 6px 20px rgba(0, 102, 255, 0.3); }
+    50%      { transform: scale(1.08); box-shadow: 0 8px 28px rgba(0, 102, 255, 0.45); }
+  }
+
+  @media (max-width: 960px) {
+    .shift-arrow { transform: rotate(90deg); }
+    @keyframes arrow-pulse {
+      0%, 100% { transform: rotate(90deg) scale(1); }
+      50%      { transform: rotate(90deg) scale(1.08); }
+    }
+  }
+
+  /* ---------- PIPELINE FLOW ---------- */
+
+  .pipeline-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: var(--space-5);
+    position: relative;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: stretch;
+    gap: var(--space-4);
+    position: relative;
+  }
+
+  .flow-step .num-col {
+    flex-shrink: 0;
+    width: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .flow-step .num-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--bg-primary);
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .flow-step.is-llm .num-circle {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 0 0 6px rgba(0, 102, 255, 0.12);
+  }
+
+  .flow-step .connector {
+    flex: 1;
+    width: 2px;
+    background: var(--border-soft);
+    margin: 4px 0;
+    min-height: 24px;
+  }
+
+  .flow-step:last-child .connector { display: none; }
+
+  .flow-step .body {
+    flex: 1;
+    padding: 0 0 var(--space-5);
+  }
+
+  .flow-step .row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-2);
+  }
+
+  .flow-step h3 {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  .flow-step .badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+  }
+
+  .flow-step .badge.deterministic {
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+  }
+
+  .flow-step .badge.embedding {
+    background: var(--good-soft);
+    color: var(--good);
+  }
+
+  .flow-step .badge.llm {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .flow-step .badge.api {
+    background: rgba(181, 71, 8, 0.1);
+    color: var(--warn);
+  }
+
+  .flow-step p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    max-width: 720px;
+  }
+
+  /* Highlight the LLM stage */
+  .flow-step.is-llm h3 {
+    color: var(--accent);
+  }
+
+  /* ---------- TRACK CARDS ---------- */
+
+  .track-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-5);
+  }
+
+  @media (min-width: 960px) {
+    .track-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .track-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-xs);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+  }
+
+  .track-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-md);
+  }
+
+  .track-card .track-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .track-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  .track-card .approach {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+
+  .track-card p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  .track-card .examples {
+    margin-top: auto;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border-soft);
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .track-card .examples strong {
+    color: var(--text-primary);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 4px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ---------- TOOLKIT GRID ---------- */
+
+  .toolkit-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+  }
+
+  @media (min-width: 720px) {
+    .toolkit-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 1080px) {
+    .toolkit-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .tool-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    transition: transform 0.35s var(--ease), border-color 0.35s var(--ease);
+  }
+
+  .tool-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+  }
+
+  .tool-card .tool-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .tool-card .tool-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .tool-card .tool-role {
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .tool-card .tool-why {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* ---------- CONFIDENCE GATE ---------- */
+
+  .gate-wrap {
+    margin-top: var(--space-5);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 720px) {
+    .gate-wrap { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .gate-tier {
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    border: 1px solid var(--border-soft);
+    background: var(--bg-primary);
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  }
+
+  .gate-tier:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .gate-tier .threshold {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    margin-bottom: var(--space-2);
+  }
+
+  .gate-tier .verdict {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    display: inline-block;
+    margin-bottom: var(--space-3);
+  }
+
+  .gate-tier h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+    letter-spacing: -0.01em;
+  }
+
+  .gate-tier p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .gate-tier.publish { border-color: var(--good); background: var(--good-soft); }
+  .gate-tier.publish .threshold { color: var(--good); }
+  .gate-tier.publish .verdict { background: var(--good); color: #fff; }
+
+  .gate-tier.review .threshold { color: var(--warn); }
+  .gate-tier.review .verdict { background: var(--warn-soft); color: var(--warn); }
+
+  .gate-tier.drop { background: var(--bg-tertiary); }
+  .gate-tier.drop .threshold { color: var(--text-secondary); }
+  .gate-tier.drop .verdict { background: var(--bg-primary); color: var(--text-muted); }
+
+  .gate-fine {
+    margin-top: var(--space-4);
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    font-style: italic;
+    max-width: 720px;
+  }
+
+  /* ---------- THE NUMBERS ---------- */
+
+  .numbers-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-5);
+  }
+
+  @media (min-width: 720px) {
+    .numbers-row { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .number-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    border: 1px solid transparent;
+    transition: transform 0.35s var(--ease), border-color 0.35s var(--ease);
+  }
+
+  .number-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+  }
+
+  .number-card .delta {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-3);
+  }
+
+  .number-card .num {
+    font-size: 56px;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--text-primary);
+  }
+
+  .number-card .lbl {
+    margin-top: var(--space-3);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .number-card .from {
+    margin-top: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border-soft);
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .number-card .from strong {
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  /* ---------- PHASES TIMELINE ---------- */
+
+  .phases {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-top: var(--space-5);
+    position: relative;
+    padding-left: var(--space-5);
+  }
+
+  .phases::before {
+    content: "";
+    position: absolute;
+    left: 14px;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent) 0%, var(--accent) 33%, var(--border-soft) 33%);
+  }
+
+  .phase-row {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .phase-marker {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 4px solid var(--bg-secondary);
+    flex-shrink: 0;
+    margin-left: -22px;
+    margin-top: 6px;
+  }
+
+  .phase-row.future .phase-marker {
+    background: var(--bg-primary);
+    border-color: var(--border-soft);
+    box-shadow: 0 0 0 2px var(--border-soft) inset;
+  }
+
+  .phase-content {
+    flex: 1;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  }
+
+  .phase-content:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .phase-content .phase-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-2);
+  }
+
+  .phase-content h3 {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: var(--space-2);
+    letter-spacing: -0.01em;
+  }
+
+  .phase-content .timing {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: var(--space-3);
+  }
+
+  .phase-content p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  .phase-content ul {
+    list-style: none;
+    margin-top: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .phase-content li {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    padding-left: 18px;
+    position: relative;
+  }
+
+  .phase-content li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 8px;
+    height: 5px;
+    border-left: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    transform: rotate(-45deg);
+  }
+
+  /* ---------- BOUNDARY (out of scope for LLM) ---------- */
+
+  .boundary {
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-top: var(--space-5);
+    border-left: 4px solid var(--accent);
+  }
+
+  .boundary h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+    letter-spacing: -0.01em;
+  }
+
+  .boundary p {
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: var(--space-4);
+  }
+
+  .boundary-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  @media (min-width: 720px) {
+    .boundary-list { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .boundary-item {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    padding: 10px 14px;
+    background: var(--bg-primary);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+  }
+
+  .boundary-item .x {
+    color: var(--warn);
+    font-weight: 600;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .boundary-item strong {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .boundary-item span {
+    color: var(--text-secondary);
+  }
+
+  /* ---------- CLOSE / FOOTER ---------- */
+
+  .close-line {
+    text-align: center;
+    margin-top: var(--space-7);
+    font-size: 17px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  footer {
+    background: var(--bg-inverse);
+    color: var(--text-inverse);
+    padding: var(--space-7) 0;
+    margin-top: var(--space-9);
+  }
+
+  footer .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+  }
+
+  footer .wordmark .harris { color: var(--text-inverse); }
+  footer .wordmark .auto { color: #a1a1a6; }
+
+  footer .tag {
+    color: #a1a1a6;
+    font-size: 14px;
+  }
+
+  /* ---------- MOBILE SCALE ---------- */
+
+  @media (max-width: 640px) {
+    .hero { padding: var(--space-7) 0; }
+    .hero h1 { font-size: 40px; }
+    .hero .lead { font-size: 17px; }
+    section.block { padding: var(--space-7) 0; }
+    section.block h2 { font-size: 32px; }
+    section.block .section-lead { font-size: 17px; margin-bottom: var(--space-5); }
+    .number-card .num { font-size: 44px; }
+  }
+
+  /* ---------- MOTION ---------- */
+
+  /* Hero text fade-in on load */
+  html.js .hero h1,
+  html.js .hero .lead,
+  html.js .hero .meta,
+  html.js .hero .eyebrow {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: hero-in 0.9s var(--ease) forwards;
+  }
+  html.js .hero .eyebrow { animation-delay: 0.05s; }
+  html.js .hero h1       { animation-delay: 0.15s; }
+  html.js .hero .lead    { animation-delay: 0.30s; }
+  html.js .hero .meta    { animation-delay: 0.45s; }
+  @keyframes hero-in {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scroll-reveal */
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    will-change: opacity, transform;
+  }
+  html.js .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  html.js .reveal.d1 { transition-delay: 0.06s; }
+  html.js .reveal.d2 { transition-delay: 0.12s; }
+  html.js .reveal.d3 { transition-delay: 0.18s; }
+  html.js .reveal.d4 { transition-delay: 0.24s; }
+  html.js .reveal.d5 { transition-delay: 0.30s; }
+  html.js .reveal.d6 { transition-delay: 0.36s; }
+  html.js .reveal.d7 { transition-delay: 0.42s; }
+  html.js .reveal.d8 { transition-delay: 0.48s; }
+  html.js .reveal.d9 { transition-delay: 0.54s; }
+  html.js .reveal.d10 { transition-delay: 0.60s; }
+
+  /* Number count-up cards: subtle scale-in */
+  html.js .number-card.reveal {
+    transform: translateY(28px) scale(0.97);
+  }
+  html.js .number-card.reveal.in {
+    transform: translateY(0) scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.js .reveal { opacity: 1; transform: none; transition: none; }
+    html.js .hero h1, html.js .hero .lead, html.js .hero .meta, html.js .hero .eyebrow {
+      opacity: 1; transform: none; animation: none;
+    }
+    .hero-orb { animation: none; }
+    .shift-arrow { animation: none; }
+    .diag-card:hover, .track-card:hover, .gate-tier:hover, .number-card:hover, .phase-content:hover, .tool-card:hover {
+      transform: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ========== TOP BAR ========== -->
+  <div class="topbar">
+    <div class="container">
+      <span class="wordmark">
+        <span class="harris">Harris</span>
+        <span class="auto">Automations</span>
+      </span>
+      <span class="doc-tag">Build Plan</span>
+    </div>
+  </div>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="hero-orb a"></div>
+    <div class="hero-orb b"></div>
+    <div class="container">
+      <div class="eyebrow accent">Shift · Events Extraction</div>
+      <h1>From one Claude doing everything, to a pipeline where each step earns its place.</h1>
+      <p class="lead">A reset of the events ingestion build — moving from a single agentic loop that breaks at scale, to a staged pipeline where the LLM only does the one thing it&rsquo;s genuinely best at.</p>
+      <div class="meta">
+        <span><strong>Prepared for</strong> Don &amp; Carl · Shift</span>
+        <span><strong>Prepared by</strong> Finn Harris · Harris Automations</span>
+        <span><strong>Date</strong> 2026-05-06</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DIAGNOSIS ========== -->
+  <section class="block">
+    <div class="container">
+      <div class="eyebrow accent reveal">Where we are</div>
+      <h2 class="reveal d1">The current build is hitting an architectural ceiling, not a prompt one.</h2>
+      <p class="section-lead reveal d2">A single Claude call is being asked to search the web, fetch pages, parse them, translate, categorise, and emit JSON &mdash; all inside one agent loop. The symptoms (token-limit errors, malformed JSON, low yield, runaway cost) all trace back to that single decision.</p>
+
+      <div class="diag-grid">
+        <div class="diag-card symptom reveal d1">
+          <div class="label">Symptoms</div>
+          <h3>What you&rsquo;re seeing today</h3>
+          <p>Token-limit errors that needed <em>max_tokens</em> raised from 4k to 20k. &ldquo;role: assistant should not be last message&rdquo; failures. Inconsistent JSON shapes between runs. Roughly 20 usable events surfaced from 300 source sites &mdash; below 7% conversion.</p>
+        </div>
+        <div class="diag-card cause reveal d2">
+          <div class="label">Underlying cause</div>
+          <h3>The LLM is the orchestrator, not a leaf</h3>
+          <p>Every page goes through the same agent loop deciding what to fetch, how to parse it, what counts as on-topic, and how to structure the output &mdash; in one call. Each round-trip compounds the chance of a malformed response. The cost and brittleness are emergent properties of that shape.</p>
+        </div>
+      </div>
+
+      <div class="diag-stats">
+        <div class="diag-stat reveal d1">
+          <div class="num">~300</div>
+          <div class="lbl">Sources scanned / run</div>
+        </div>
+        <div class="diag-stat reveal d2">
+          <div class="num">~20</div>
+          <div class="lbl">Usable events / run</div>
+        </div>
+        <div class="diag-stat reveal d3">
+          <div class="num">~300k</div>
+          <div class="lbl">Tokens / run</div>
+        </div>
+        <div class="diag-stat reveal d4">
+          <div class="num">~$1.50</div>
+          <div class="lbl">Cost / run</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== THE SHIFT ========== -->
+  <section class="block alt">
+    <div class="container">
+      <div class="eyebrow accent reveal">The decision</div>
+      <h2 class="reveal d1">Invert the architecture.</h2>
+      <p class="section-lead reveal d2">Stop asking Claude to be the orchestrator. Make it the cleanest possible leaf node &mdash; one prompt, one page, one JSON output &mdash; and let purpose-built tools handle everything else.</p>
+
+      <div class="shift-frame">
+        <div class="shift-side before reveal d1">
+          <span class="tag">Today</span>
+          <h3>One agent doing six jobs</h3>
+          <ul>
+            <li>Decides which URL to crawl next</li>
+            <li>Fetches HTML and extracts content</li>
+            <li>Translates Dutch &harr; English</li>
+            <li>Categorises and tags each event</li>
+            <li>Scores topical relevance</li>
+            <li>Emits final JSON</li>
+          </ul>
+        </div>
+        <div class="shift-arrow reveal d2" aria-hidden="true">&rarr;</div>
+        <div class="shift-side after reveal d3">
+          <span class="tag">After</span>
+          <h3>Ten small steps, one of them an LLM</h3>
+          <ul>
+            <li>Source registry routes by site type</li>
+            <li>Static fetchers pull HTML &mdash; no LLM</li>
+            <li>Embeddings filter on-topic vs off</li>
+            <li><strong style="color:var(--accent)">Haiku 4.5 extracts events</strong> &mdash; the only LLM call</li>
+            <li>DeepL translates on write</li>
+            <li>Confidence gate decides publish vs review</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== THE PIPELINE ========== -->
+  <section class="block">
+    <div class="container">
+      <div class="eyebrow accent reveal">How it flows</div>
+      <h2 class="reveal d1">The new pipeline, end to end.</h2>
+      <p class="section-lead reveal d2">Ten stages, each doing one thing well. Only one stage is an LLM call &mdash; and it&rsquo;s the stage where an LLM is genuinely irreplaceable. Everything else is a deterministic tool, a vector lookup, or a native API.</p>
+
+      <div class="pipeline-flow">
+        <div class="flow-step reveal d1">
+          <div class="num-col">
+            <div class="num-circle">1</div>
+            <div class="connector"></div>
+          </div>
+          <div class="body">
+            <div class="row">
+              <h3>Source registry</h3>
+              <span class="badge deterministic">Postgres</span>
+            </div>
+            <p>One Postgres table holds every event source &mdash; URL, site type (API / aggregator / static), success rate, last-scanned timestamp. Bad sources auto-deprioritise over time.</p>
+          </div>
+        </div>
+
+        <div class="flow-step reveal d2">
+          <div class="num-col">
+            <div class="num-circle">2</div>
+            <div class="connector"></div>
+          </div>
+          <div class="body">
+            <div class="row">
+              <h3>Dispatcher</h3>
+              <span class="badge deterministic">BullMQ</span>
+            </div>
+            <p>Routes each source down the right track based on its type. Handles retries, rate limits, and concurrency. Already runs on your existing Heroku Redis &mdash; no new infrastructure.</p>
+          </div>
+        </div>
+
+        <div class="flow-step reveal d3">
+          <div class="num-col">
+            <div class="num-circle">3</div>
+            <div class="connector"></div>
+          </div>
+          <div class="body">
+            <div class="row">
+              <h3>Three-track fetch</h3>
+              <span class="badge api">API · HTML · JSON-LD</span>
+            </div>
+            <p>API-first where possible (Eventbrite / Meetup / Luma). Per-domain HTML adapters for big aggregators. JSON-LD <code>schema.org/Event</code> sniff for static venue sites &mdash; that alone covers 30&ndash;70% of pages without any LLM call at all.</p>
+          </div>
+        </div>
+
+        <div class="flow-step reveal d4">
+          <div class="num-col">
+            <div class="num-circle">4</div>
+            <div class="connector"></div>
+          </div>
+          <div class="body">
+            <div class="row">
+              <h3>Topical pre-filter</h3>
+              <span class="badge embedding">Embedding cosine</span>
+            </div>
+            <p>Before paying for any LLM token, check whether the page is even about sustainability. A Cohere multilingual embedding compared against a small reference set of on-topic Dutch text. ~250&times; cheaper than asking Claude to make the same call.</p>
+          </div>
+        </div>
+
+        <div class="flow-step is-llm reveal d5">
+          <div class="num-col">
+            <div class="num-circle">5</div>
+            <div class="connector"></div>
+          </div>
+          <div class="body">
+            <div class="row">
+              <h3>Per-page extractor</h3>
+              <span class="badge llm">Haiku 4.5 &mdash; the one LLM call</span>
+            </div>
+            <p>Page markdown goes in. Zero or more structured event objects come out. <strong>One call per page. No agent loop. No web access. No tools.</strong> Forced structured output guarantees a valid JSON shape every time.</p>
+          </div>
+        </div>
+
+        <div class="flow-step reveal d6">
+          <div class="num-col">
+            <div class="num-circle">6</div>
+            <div class="connector"></div>
+          </div>
+          <div class="body">
+            <div class="row">
+              <h3>Categoriser</h3>
+              <span class="badge embedding">Embedding cosine</span>
+            </div>
+            <p>Each extracted event is matched against your existing category list using embeddings &mdash; not the LLM. Deterministic, ~1000&times; cheaper, and impossible to hallucinate a category that doesn&rsquo;t exist in your DB.</p>
+          </div>
+        </div>
+
+        <div class="flow-step reveal d7">
+          <div class="num-col">
+            <div class="num-circle">7</div>
+            <div class="connector"></div>
+          </div>
+          <div class="body">
+            <div class="row">
+              <h3>Translator</h3>
+              <span class="badge api">DeepL</span>
+            </div>
+            <p>Dutch &harr; English on write. Purpose-built for this exact task and roughly 50&times; cheaper than asking an LLM. Decoupling translation from extraction means we can re-translate the back catalogue without re-running extraction.</p>
+          </div>
+        </div>
+
+        <div class="flow-step reveal d8">
+          <div class="num-col">
+            <div class="num-circle">8</div>
+            <div class="connector"></div>
+          </div>
+          <div class="body">
+            <div class="row">
+              <h3>Geocoder</h3>
+              <span class="badge api">PDOK Locatieserver</span>
+            </div>
+            <p>Free, authoritative Dutch geocoding endpoint. Turns &ldquo;Amsterdam, Plantage Middenlaan 2A&rdquo; into <code>{postal_code, city}</code> matching your <code>EventItem.address</code> shape. No hallucinated postcodes.</p>
+          </div>
+        </div>
+
+        <div class="flow-step reveal d9">
+          <div class="num-col">
+            <div class="num-circle">9</div>
+            <div class="connector"></div>
+          </div>
+          <div class="body">
+            <div class="row">
+              <h3>Deduplication</h3>
+              <span class="badge deterministic">Composite key + pgvector</span>
+            </div>
+            <p>The same event listed on three sites still becomes one row. Composite key on normalised title + date bucket + city handles the easy 90%; embedding similarity cleans up the long tail.</p>
+          </div>
+        </div>
+
+        <div class="flow-step reveal d10">
+          <div class="num-col">
+            <div class="num-circle">10</div>
+          </div>
+          <div class="body">
+            <div class="row">
+              <h3>Confidence gate</h3>
+              <span class="badge deterministic">Threshold logic</span>
+            </div>
+            <p>The extractor emits a self-reported confidence score with each event. The gate decides what reaches your published feed automatically, what queues for human review, and what gets dropped. This is where the cost-of-review savings live &mdash; see next section.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== THREE TRACKS ========== -->
+  <section class="block alt">
+    <div class="container">
+      <div class="eyebrow accent reveal">Source strategy</div>
+      <h2 class="reveal d1">Match the tool to the surface.</h2>
+      <p class="section-lead reveal d2">Not every event source needs the same treatment. Three tracks, and the LLM only fires on the third.</p>
+
+      <div class="track-grid">
+        <div class="track-card reveal d1">
+          <div class="track-tag">Track A</div>
+          <h3>API-backed</h3>
+          <div class="approach">Native APIs &mdash; zero LLM</div>
+          <p>Eventbrite, Meetup, Luma, Mobilizon all expose structured event data with native filters. We pull, filter, and write. The LLM never touches these.</p>
+          <div class="examples">
+            <strong>When it&rsquo;s the right fit</strong>
+            Sources that already have a structured API endpoint with sustainability-relevant categories or geo filters.
+          </div>
+        </div>
+
+        <div class="track-card reveal d2">
+          <div class="track-tag">Track B</div>
+          <h3>Aggregator</h3>
+          <div class="approach">Per-domain HTML adapter</div>
+          <p>Big neighbourhood platforms (Wijkconnect, Buurtgroen020, HalloIJburg) have predictable HTML. ~30 minutes per site to write a cheerio adapter, then it runs deterministically forever &mdash; with an LLM fallback if selectors break.</p>
+          <div class="examples">
+            <strong>When it&rsquo;s the right fit</strong>
+            High-volume sources where the structure is stable enough that a one-off adapter pays back across hundreds of events.
+          </div>
+        </div>
+
+        <div class="track-card reveal d3">
+          <div class="track-tag">Track C</div>
+          <h3>Static venue</h3>
+          <div class="approach">JSON-LD &rarr; LLM fallback</div>
+          <p>Long-tail venue sites. We try <code>schema.org/Event</code> JSON-LD first &mdash; it&rsquo;s already structured data, no LLM needed. Only if the page doesn&rsquo;t have it does Haiku 4.5 do the structured extraction.</p>
+          <div class="examples">
+            <strong>When it&rsquo;s the right fit</strong>
+            The 7 hardcoded URLs in the current build. This is the track Phase 1 ships, and the only one that touches an LLM at all.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== THE TOOLKIT ========== -->
+  <section class="block">
+    <div class="container">
+      <div class="eyebrow accent reveal">The toolkit</div>
+      <h2 class="reveal d1">Each component picked for the job it&rsquo;s actually good at.</h2>
+      <p class="section-lead reveal d2">Nine pieces total. Only one of them is a generative model. The rest are purpose-built &mdash; cheaper, faster, and impossible to hallucinate.</p>
+
+      <div class="toolkit-grid">
+        <div class="tool-card reveal d1">
+          <div class="tool-head">
+            <span class="tool-name">Claude Haiku 4.5</span>
+            <span class="tool-role">Extraction</span>
+          </div>
+          <p class="tool-why">Cheapest top-tier model with strong structured-output. The single place an LLM earns its tokens: turning unstructured page text into a typed event object.</p>
+        </div>
+
+        <div class="tool-card reveal d2">
+          <div class="tool-head">
+            <span class="tool-name">Cohere embed-multilingual-v3</span>
+            <span class="tool-role">Topical filter + categoriser</span>
+          </div>
+          <p class="tool-why">Trained on 100+ languages with explicit cross-lingual alignment. Avoids the English-bias trap that English-only embeddings hit on Dutch sustainability vocabulary.</p>
+        </div>
+
+        <div class="tool-card reveal d3">
+          <div class="tool-head">
+            <span class="tool-name">DeepL</span>
+            <span class="tool-role">Translation</span>
+          </div>
+          <p class="tool-why">Best-in-class for NL &harr; EN, ~50&times; cheaper than running an LLM as a translator. Idiom handling on community Dutch (<em>buurtmoestuin</em>, <em>energiecoöperatie</em>) is meaningfully better than any general LLM.</p>
+        </div>
+
+        <div class="tool-card reveal d4">
+          <div class="tool-head">
+            <span class="tool-name">PDOK Locatieserver</span>
+            <span class="tool-role">Geocoding</span>
+          </div>
+          <p class="tool-why">Official Dutch government geocoding. Free, no API key, authoritative postcodes. Eliminates the &ldquo;Claude invented a Dutch postcode&rdquo; failure mode entirely.</p>
+        </div>
+
+        <div class="tool-card reveal d5">
+          <div class="tool-head">
+            <span class="tool-name">cheerio</span>
+            <span class="tool-role">HTML parsing</span>
+          </div>
+          <p class="tool-why">Server-side jQuery for HTML. Fast, well-known, zero magic. Used for per-domain aggregator adapters and JSON-LD sniffing.</p>
+        </div>
+
+        <div class="tool-card reveal d6">
+          <div class="tool-head">
+            <span class="tool-name">BullMQ + Redis</span>
+            <span class="tool-role">Job queue</span>
+          </div>
+          <p class="tool-why">Already running on your Heroku stack. Handles retries, scheduling, concurrency limits. No new infrastructure to deploy.</p>
+        </div>
+
+        <div class="tool-card reveal d7">
+          <div class="tool-head">
+            <span class="tool-name">pgvector</span>
+            <span class="tool-role">Dedup &amp; similarity</span>
+          </div>
+          <p class="tool-why">Postgres extension for vector similarity. Lets us catch &ldquo;same event, different listing&rdquo; without an extra service to operate.</p>
+        </div>
+
+        <div class="tool-card reveal d8">
+          <div class="tool-head">
+            <span class="tool-name">Postgres + TypeORM</span>
+            <span class="tool-role">Storage</span>
+          </div>
+          <p class="tool-why">Already your stack. The new pipeline writes to the same <code>EventItem</code> table you have today &mdash; with a few small schema fixes (single image URL, structured address, nullable recurrence).</p>
+        </div>
+
+        <div class="tool-card reveal d9">
+          <div class="tool-head">
+            <span class="tool-name">Heroku</span>
+            <span class="tool-role">Hosting</span>
+          </div>
+          <p class="tool-why">Already your stack. The pipeline ships as additional NestJS modules in your existing app &mdash; not a separate service.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONFIDENCE GATE ========== -->
+  <section class="block alt">
+    <div class="container">
+      <div class="eyebrow accent reveal">Confidence gate</div>
+      <h2 class="reveal d1">The highest-leverage decision in the build.</h2>
+      <p class="section-lead reveal d2">The hidden cost of an events pipeline isn&rsquo;t API tokens &mdash; it&rsquo;s human review time. Every extracted event sits at one of three confidence levels, and each level has a different cost-of-failure trade-off.</p>
+
+      <div class="gate-wrap">
+        <div class="gate-tier publish reveal d1">
+          <div class="threshold">&ge; 0.85</div>
+          <span class="verdict">Auto-publish</span>
+          <h3>Goes live without review</h3>
+          <p>The extractor is highly confident every required field is correct. These flow straight to your public feed.</p>
+        </div>
+        <div class="gate-tier review reveal d2">
+          <div class="threshold">0.6&ndash;0.85</div>
+          <span class="verdict">Queue for review</span>
+          <h3>Human eye before publish</h3>
+          <p>Borderline confidence. Quick approve / reject in an internal queue. Cheaper than hand-curating, safer than auto-publishing.</p>
+        </div>
+        <div class="gate-tier drop reveal d3">
+          <div class="threshold">&lt; 0.6</div>
+          <span class="verdict">Drop silently</span>
+          <h3>Not worth a human&rsquo;s time</h3>
+          <p>Very low confidence. Logged for source quality metrics, but never queued. Bad sources surface in the registry as low yield.</p>
+        </div>
+      </div>
+
+      <p class="gate-fine reveal d4">Why this matters: at $30&ndash;40/hr review time and 30 seconds per event, hand-reviewing 100 events per run costs $25&ndash;35 in human time &mdash; far more than the LLM. Auto-publishing the high-confidence band is the single biggest cost lever in the system.</p>
+    </div>
+  </section>
+
+  <!-- ========== THE NUMBERS ========== -->
+  <section class="block">
+    <div class="container">
+      <div class="eyebrow accent reveal">What this changes</div>
+      <h2 class="reveal d1">The numbers we&rsquo;re aiming at.</h2>
+      <p class="section-lead reveal d2">Projections, not promises &mdash; Phase 1 measures and confirms before we lock anything in. But the architecture maths points here.</p>
+
+      <div class="numbers-row">
+        <div class="number-card reveal d1">
+          <div class="delta">5&ndash;10&times; cheaper</div>
+          <div class="num">~$0.01</div>
+          <div class="lbl">Cost per published event</div>
+          <div class="from"><strong>Today:</strong> ~$0.075 per event ($1.50 / 20 events)</div>
+        </div>
+        <div class="number-card reveal d2">
+          <div class="delta">4&ndash;10&times; more</div>
+          <div class="num">80&ndash;150</div>
+          <div class="lbl">Events per run</div>
+          <div class="from"><strong>Today:</strong> ~20 usable events from ~300 sources</div>
+        </div>
+        <div class="number-card reveal d3">
+          <div class="delta">Single-shot</div>
+          <div class="num">&le; 15s</div>
+          <div class="lbl">P95 latency per page</div>
+          <div class="from"><strong>Today:</strong> agent loops with no upper bound on tool calls</div>
+        </div>
+      </div>
+
+      <p class="close-line reveal d4">The cost-per-event win comes from removing the LLM from stages where it shouldn&rsquo;t be running. The volume win comes from JSON-LD coverage and not failing on schema mismatches mid-loop.</p>
+    </div>
+  </section>
+
+  <!-- ========== PHASES ========== -->
+  <section class="block alt">
+    <div class="container">
+      <div class="eyebrow accent reveal">How we get there</div>
+      <h2 class="reveal d1">Three phases. Phase 1 is the contracted POC.</h2>
+      <p class="section-lead reveal d2">The architecture is the same across all three phases &mdash; we just expand the source set and harden each stage as we go. Phase 1 proves the shape on the 7 URLs you already have hardcoded today.</p>
+
+      <div class="phases">
+        <div class="phase-row reveal d1">
+          <div class="phase-marker"></div>
+          <div class="phase-content">
+            <div class="phase-tag">Phase 1 · POC · in scope today</div>
+            <h3>Prove the shape on the existing 7 URLs.</h3>
+            <div class="timing">0.5&ndash;2 days</div>
+            <p>Track C only (static venue sites). Replace the agent loop with a single-shot Haiku 4.5 extractor. Fix the schema mismatches (multiple image URLs &rarr; one, free-text address &rarr; structured, <code>repeats: never</code> &rarr; nullable). Measure cost, latency, and field-completeness on real pages.</p>
+            <ul>
+              <li>End-to-end run on all 7 hardcoded URLs</li>
+              <li>Schema migration (one image URL, structured address, nullable recurrence)</li>
+              <li>Legacy <code>useClaudeImport</code> agent loop removed</li>
+              <li>Close-out write-up: measured numbers + Phase 2 go/no-go recommendation</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="phase-row future reveal d2">
+          <div class="phase-marker"></div>
+          <div class="phase-content">
+            <div class="phase-tag">Phase 2 · Production hardening · future engagement</div>
+            <h3>Add the source registry, dedup, and the confidence gate.</h3>
+            <div class="timing">~1 week</div>
+            <p>Bring in Track A (Eventbrite + Meetup APIs). Wire DeepL translation. Add the dedup layer and confidence-gated publishing. Run shadow-mode auto-publish for a week before flipping live.</p>
+            <ul>
+              <li>50-page bake-off on Haiku 4.5 vs Gemini 2.5 Flash vs GPT-4.1-mini &mdash; measured swap, not vibes</li>
+              <li>Source registry with per-source success metrics</li>
+              <li>Confidence gate: shadow first, then live</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="phase-row future reveal d3">
+          <div class="phase-marker"></div>
+          <div class="phase-content">
+            <div class="phase-tag">Phase 3 · Scale · future engagement</div>
+            <h3>Track B aggregators &amp; auto-deprioritisation.</h3>
+            <div class="timing">~1 week+</div>
+            <p>Per-domain adapters for the big neighbourhood aggregators. Automatic source feedback loop &mdash; bad sources fall to the back of the queue automatically. JSON-LD sniffer to skip the LLM entirely on well-structured pages.</p>
+            <ul>
+              <li>cheerio adapters for the 3&ndash;5 highest-volume aggregators</li>
+              <li>Auto-deprioritisation of low-yield sources</li>
+              <li>JSON-LD sniffer (cuts LLM calls by 30&ndash;70% on Track C)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BOUNDARY ========== -->
+  <section class="block">
+    <div class="container">
+      <div class="eyebrow accent reveal">The line in the sand</div>
+      <h2 class="reveal d1">What the LLM never does &mdash; on purpose.</h2>
+      <p class="section-lead reveal d2">The single biggest reason v0 broke is that the LLM was asked to do work it isn&rsquo;t the right tool for. The build plan draws a hard line: each of the below stays out of the LLM call, forever.</p>
+
+      <div class="boundary reveal d1">
+        <h3>Out of scope for the LLM</h3>
+        <p>If a future contributor proposes pushing any of these back into the prompt, the build is being un-done. Each is delegated to a purpose-built tool that&rsquo;s cheaper, faster, and can&rsquo;t hallucinate.</p>
+        <div class="boundary-list">
+          <div class="boundary-item"><span class="x">&times;</span><span><strong>Translation.</strong> DeepL handles NL &harr; EN.</span></div>
+          <div class="boundary-item"><span class="x">&times;</span><span><strong>Categorisation.</strong> Embedding cosine vs your category list.</span></div>
+          <div class="boundary-item"><span class="x">&times;</span><span><strong>Topical relevance.</strong> Embedding pre-filter handles it.</span></div>
+          <div class="boundary-item"><span class="x">&times;</span><span><strong>Geocoding.</strong> PDOK Locatieserver, authoritative.</span></div>
+          <div class="boundary-item"><span class="x">&times;</span><span><strong>Deduplication.</strong> Composite key + pgvector.</span></div>
+          <div class="boundary-item"><span class="x">&times;</span><span><strong>Tagging or theming.</strong> Your DB has no tags column.</span></div>
+          <div class="boundary-item"><span class="x">&times;</span><span><strong>Web search or fetch.</strong> Static fetchers run before the LLM call.</span></div>
+          <div class="boundary-item"><span class="x">&times;</span><span><strong>Multi-step reasoning.</strong> No agent loop, no tool round-trips.</span></div>
+        </div>
+      </div>
+
+      <p class="close-line reveal d2">Everything the LLM doesn&rsquo;t do is something a deterministic tool does better. That&rsquo;s the whole bet.</p>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <div class="container">
+      <span class="wordmark">
+        <span class="harris">Harris</span>
+        <span class="auto">Automations</span>
+      </span>
+      <span class="tag">Finn Harris &middot; AI Automation &middot; finn@harris-automations.com</span>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll-reveal: add .in when element scrolls into view
+    (function () {
+      if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+
+</body>
+</html>
