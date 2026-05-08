@@ -1136,6 +1136,181 @@
     color: var(--accent);
   }
 
+  /* ---------- PHASE BREAKDOWN ---------- */
+
+  .phase-breakdown-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    margin-top: var(--space-6);
+  }
+
+  .phase-block {
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .phase-block-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-bottom: var(--space-4);
+    margin-bottom: var(--space-3);
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  @media (min-width: 700px) {
+    .phase-block-header {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-5);
+    }
+  }
+
+  .phase-block-meta {
+    flex: 1;
+  }
+
+  .phase-block-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-2);
+  }
+
+  .phase-block-title {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-1);
+  }
+
+  .phase-block-period {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .phase-block-total {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  @media (min-width: 700px) {
+    .phase-block-total {
+      align-items: flex-end;
+      text-align: right;
+    }
+  }
+
+  .phase-block-total-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .phase-block-total-num {
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    font-feature-settings: "tnum";
+    line-height: 1;
+  }
+
+  .phase-block-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .phase-block-items li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-3);
+    padding: 12px 0;
+    font-size: 14.5px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .phase-block-items li:last-child {
+    border-bottom: none;
+  }
+
+  .phase-block-items .item-name {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .phase-block-items .item-price {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-feature-settings: "tnum";
+    white-space: nowrap;
+  }
+
+  .phase-block-items li.item-featured .item-name {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .phase-block-items li.item-featured .item-price {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .phase-breakdown-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+    padding: var(--space-4) 0;
+    border-top: 2px solid var(--text-primary);
+  }
+
+  .phase-breakdown-total-label {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+  }
+
+  .phase-breakdown-total-num {
+    font-size: 44px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    font-feature-settings: "tnum";
+    color: var(--text-primary);
+    line-height: 1;
+  }
+
+  .phase-breakdown-fine {
+    margin-top: var(--space-3);
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    max-width: 720px;
+  }
+
+  @media (max-width: 600px) {
+    .phase-block-total-num { font-size: 30px; }
+    .phase-breakdown-total-num { font-size: 32px; }
+  }
+
   /* ---------- CTA ---------- */
 
   .cta-section {
@@ -1355,12 +1530,12 @@
     <div class="hero-orb b"></div>
     <div class="container">
       <div class="eyebrow">Proposal - SMS Lead Conversion System</div>
-      <h1>An agent on every text. A dashboard on every lead.</h1>
-      <p class="lead">An always-on SMS conversion engine that texts your scraped leads in your voice, books warm ones straight into the agent's calendar, and gives you live-pipeline visibility across the whole pilot.</p>
+      <h1>Every lead routed by you. Every text run by the system.</h1>
+      <p class="lead">An always-on SMS conversion engine that texts your scraped leads in your voice, surfaces warm ones in your dashboard with an AI-suggested best-fit agent, and lets you click-route or override before anything hits the agent.</p>
       <div class="meta">
         <span><strong>Prepared for</strong> Bobbie · True North Systems</span>
         <span><strong>Prepared by</strong> Finn Harris · Harris Automations</span>
-        <span><strong>Date</strong> 2026-04-26</span>
+        <span><strong>Date</strong> 2026-05-08</span>
       </div>
     </div>
   </section>
@@ -1370,7 +1545,7 @@
     <div class="container">
       <div class="eyebrow accent">The shift</div>
       <h2>From scripts you can't scale to a system that runs them for you.</h2>
-      <p class="section-lead">30 years of dialogue, objection-handling, and tone, bottlenecked today by your agents' calendars. After this build, your playbook runs on every cold lead, every day, in your voice.</p>
+      <p class="section-lead">30 years of dialogue, objection-handling, and tone, bottlenecked today by your agents' calendars. After this build, your playbook runs on every cold lead, every day, in your voice - with you sitting at the routing layer where the judgement calls are.</p>
 
       <div class="ba-grid">
         <div class="ba-col before">
@@ -1378,15 +1553,15 @@
           <ul>
             <li>You're paying for the lead list, and the cold-call burden falls on the agent</li>
             <li>Your scripts only deploy when an agent picks up the phone themselves</li>
-            <li>No visibility on which agents are letting warm hand-offs die</li>
+            <li>No control over which agent gets which lead - good leads burn on the wrong specialism</li>
           </ul>
         </div>
         <div class="ba-col after">
           <h3>With Harris Automations</h3>
           <ul>
             <li>Every scraped lead gets a multi-turn text in your voice within minutes</li>
-            <li>Warm leads book straight into the agent's calendar, no human in the loop</li>
-            <li>Live dashboard shows response rates, hand-offs, and dollar-attributable conversion per agent</li>
+            <li>Warm leads land in your dashboard with an AI suggestion - you click accept or pick a different agent</li>
+            <li>Once you assign, the conversation thread + agent push into BoldTrail and your nurture sequences fire</li>
           </ul>
         </div>
       </div>
@@ -1401,8 +1576,8 @@
   <section class="block">
     <div class="container">
       <div class="eyebrow accent">What we ship</div>
-      <h2>Two pieces, one outcome.</h2>
-      <p class="section-lead">An autonomous SMS conversion engine running your scripts, plus a per-agent dashboard giving you full pipeline visibility.</p>
+      <h2>An outreach pipeline that ends at your dashboard, not the agent's phone.</h2>
+      <p class="section-lead">An autonomous SMS conversion engine running your scripts, paired with a routing dashboard where every warm lead waits for your approval before reaching an agent.</p>
 
       <div class="card-grid">
 
@@ -1415,11 +1590,11 @@
           
           <h3>SMS Conversion Engine</h3>
           <div class="role">Always-on cold-outreach assistant</div>
-          <p>Pulls leads from your existing public-records source (Zillow, MRED, county records, tax records), opens a multi-turn text conversation in your voice, and books warm leads straight into the agent's calendar. Presents as the agent's assistant, never impersonates.</p>
+          <p>Pulls leads from public records (Cook County Open Data, Lake County) or a CSV you upload, opens a multi-turn text conversation in your voice, and surfaces warm leads to your dashboard. Presents as your assistant, never impersonates an agent.</p>
           <ul class="capabilities">
             <li>Multi-turn dialogue using your scripts (Mike Ferry baseline plus your overlays)</li>
-            <li>DNC-compliant with TCPA-aware opt-out built in</li>
-            <li>Calendar booking close, schedules appointments via API</li>
+            <li>DNC-scrubbed, STOP-keyword built in, one-at-a-time pacing per Illinois rules</li>
+            <li>Calendar booking close on warm leads, scheduled into the assigned agent's calendar via API</li>
           </ul>
           <span class="badge">Fully autonomous</span>
         </div>
@@ -1434,12 +1609,12 @@
         
         <div class="sol-card">
           
-          <h3>Per-Agent Dashboard</h3>
-          <p>A live web view of every conversation, hand-off, and booked appointment. See which agents are working their warm hand-offs and which are letting them die, and pull the lead-flow back accordingly.</p>
+          <h3>Routing Engine + Approval Dashboard</h3>
+          <p>Every warm lead lands in your dashboard with an AI-suggested best-fit agent and a one-line reason. You click accept or override - the router learns from your overrides over time. Your dashboard, not a tool the agents have to learn.</p>
           <div class="specs">
-            <span class="spec-pill">Per-agent response rate and drop-off points</span>
-            <span class="spec-pill">Warm hand-offs and calendar bookings tracked</span>
-            <span class="spec-pill">Dollar-attributable conversion per agent</span>
+            <span class="spec-pill">AI agent-match suggestion with reasoning - you accept or override</span>
+            <span class="spec-pill">Live pipeline view: response rates, hand-offs, calendar bookings, dollar-attributable conversion</span>
+            <span class="spec-pill">CRM sync (BoldTrail today, GHL or successor platform later) writes the assigned lead + thread back</span>
           </div>
         </div>
         
@@ -1459,8 +1634,8 @@
   <section class="block alt">
     <div class="container">
       <div class="eyebrow accent">The dashboard</div>
-      <h2>Pipeline visibility, live.</h2>
-      <p class="section-lead">Every lead, every conversation, every booked appointment, in one view.</p>
+      <h2>You at the routing layer.</h2>
+      <p class="section-lead">Warm leads queued, agent suggestions ready, click accept or pick someone else. The system handles everything either side of that decision.</p>
 
       <div class="mockup-wrap">
         <div class="browser-frame">
@@ -1470,16 +1645,16 @@
           </div>
           <div class="browser-body">
             <div class="mock-sidebar">
-              <div class="mock-row active">Live conversations</div>
+              <div class="mock-row active">Awaiting your approval</div>
+              <div class="mock-row">Live conversations</div>
               <div class="mock-row">Booked appointments</div>
               <div class="mock-row">Per-agent performance</div>
-              <div class="mock-row">Settings</div>
             </div>
             <div class="mock-main">
               <div class="mock-stat-grid">
                 <div class="mock-stat">
-                  <div class="num">143</div>
-                  <div class="lbl">Active conversations</div>
+                  <div class="num">12</div>
+                  <div class="lbl">Warm leads awaiting routing</div>
                   
                 </div>
                 <div class="mock-stat">
@@ -1517,23 +1692,23 @@
     <div class="container">
       <div class="eyebrow accent">Built for what comes next</div>
       <h2>A foundation, not a one-off.</h2>
-      <p class="section-lead">This proposal covers the pilot for your initial agents. The pieces below are designed so growing beyond the pilot - more agents, new territories, new scripts - extends what's already built rather than starting over.</p>
+      <p class="section-lead">This proposal covers the pilot for your initial agents. The pieces below are designed so growing beyond the pilot - more agents, new sources, new scripts - extends what's already built rather than starting over.</p>
 
       <div class="scale-wrap">
         <div class="scale-stat">
-          <div class="num">1:1</div>
-          <div class="lbl">Per-agent isolation</div>
-          <p>Each agent's number, bot config, and conversation state live independently. Adding agents within the brokerage follows the same pattern as the pilot, no shared state to untangle later.</p>
-        </div>
-        <div class="scale-stat">
           <div class="num">Multi</div>
-          <div class="lbl">Territories per agent</div>
-          <p>Zip codes plus named buildings and farms per agent. Onboarding a heavy hitter like Tarek (high-rise plus three zips) doesn't require special-casing.</p>
+          <div class="lbl">Lead sources, one pipeline</div>
+          <p>Cook County Open Data and Lake County built in on day one. Add a CSV upload, a new public-records source, or BoldTrail/MRED exports and they all flow through the same pipeline.</p>
         </div>
         <div class="scale-stat">
-          <div class="num">Live</div>
-          <div class="lbl">Script updates without downtime</div>
-          <p>Drop in updated scripts or per-agent overlays into the engine without taking the system offline.</p>
+          <div class="num">Learns</div>
+          <div class="lbl">Routing gets sharper over time</div>
+          <p>The agent-match suggester learns from your overrides. The first month you'll be picking; by month three the suggestions reflect your judgement and most leads route on a single click.</p>
+        </div>
+        <div class="scale-stat">
+          <div class="num">Portable</div>
+          <div class="lbl">CRM-agnostic by design</div>
+          <p>Your dashboard is the system of record. BoldTrail receives the lead today; if Real Realty's platform replaces it later this year, the same sync layer points at the new CRM without rebuilding.</p>
         </div>
       </div>
     </div>
@@ -1639,8 +1814,8 @@
           <div><span class="price">$2,500</span> <span class="period">50% on signing · 50% on MVP delivery</span></div>
           <ul>
             <li>SMS conversion engine with calendar booking close</li>
-            <li>Per-agent dashboard live</li>
-            <li>Twilio + Bold Trail (KV Core) wired up</li>
+            <li>Routing engine + approval dashboard live</li>
+            <li>Lead source picker (Cook County + Lake County + CSV upload) and CRM sync wired up</li>
             <li>All tool costs covered for the first month</li>
           </ul>
           
@@ -1666,6 +1841,8 @@
       
     </div>
   </section>
+
+  
 
   
 
@@ -1700,6 +1877,7 @@
     tagAll('.tier-card', 3);
     tagAll('.pipe-step', 3);
     tagAll('.time-row', 3);
+    tagAll('.phase-block', 3);
     document.querySelectorAll('.browser-frame').forEach(function (f) { f.classList.add('reveal'); });
 
     if (prefersReduced) {
